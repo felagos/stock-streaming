@@ -216,11 +216,3 @@ Clean and rebuild:
 ```bash
 cd backend && ./gradlew clean build
 ```
-
-## 📄 License
-
-[Add your license here]
-
-## 👥 Contributing
-
-[Add contribution guidelines here]
