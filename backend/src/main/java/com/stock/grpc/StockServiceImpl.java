@@ -10,6 +10,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import com.stock.model.StockData;
+
 import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -85,60 +87,5 @@ public class StockServiceImpl extends StockServiceGrpc.StockServiceImplBase {
         
         responseObserver.onNext(stockList);
         responseObserver.onCompleted();
-    }
-
-    private static class StockData {
-        private String symbol;
-        private double price;
-        private double changePercent;
-
-        public StockData(String symbol, double price, double changePercent) {
-            this.symbol = symbol;
-            this.price = price;
-            this.changePercent = changePercent;
-        }
-
-        public String getSymbol() {
-            return symbol;
-        }
-
-        public void setSymbol(String symbol) {
-            this.symbol = symbol;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-        public void setPrice(double price) {
-            this.price = price;
-        }
-
-        public double getChangePercent() {
-            return changePercent;
-        }
-
-        public void setChangePercent(double changePercent) {
-            this.changePercent = changePercent;
-        }
-
-        public void updatePrice() {
-            double change = (Math.random() - 0.5) * 2;
-            this.price += change;
-            this.changePercent = (change / this.price) * 100;
-        }
-
-        public double getChange() {
-            return price * (changePercent / 100);
-        }
-
-        @Override
-        public String toString() {
-            return "StockData{" +
-                    "symbol='" + symbol + '\'' +
-                    ", price=" + price +
-                    ", changePercent=" + changePercent +
-                    '}';
-        }
     }
 }
