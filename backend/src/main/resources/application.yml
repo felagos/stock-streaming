@@ -1,0 +1,122 @@
+# Default configuration
+spring:
+  application:
+    name: stock-streaming
+  profiles:
+    active: local
+
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 9090
+  client:
+    stock-server:
+      address: static://localhost:9090
+      negotiationType: PLAINTEXT
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      keepAliveTime: 30s
+
+logging:
+  level:
+    root: INFO
+    com.stock: DEBUG
+
+---
+# Server profile - gRPC stock server
+spring:
+  config:
+    activate:
+      on-profile: server
+  application:
+    name: grpc-stock-server
+
+grpc:
+  server:
+    port: 9090
+
+logging:
+  level:
+    root: INFO
+    com.stock: DEBUG
+
+---
+# Local profile - Development with localhost
+spring:
+  config:
+    activate:
+      on-profile: local
+  application:
+    name: stock-streaming
+
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 9090
+  client:
+    stock-server:
+      address: localhost:9090
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      keepAliveTime: 30s
+
+logging:
+  level:
+    root: INFO
+    com.stock: DEBUG
+
+---
+# Gateway profile - API Gateway for Docker
+spring:
+  config:
+    activate:
+      on-profile: gateway
+  application:
+    name: stock-api-gateway
+
+server:
+  port: 8080
+
+grpc:
+  client:
+    stock-server:
+      address: grpc-stock-server:9090
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      keepAliveTime: 30s
+
+logging:
+  level:
+    root: INFO
+    com.stock: DEBUG
+
+---
+# Docker profile - Docker environment with localhost
+spring:
+  config:
+    activate:
+      on-profile: docker
+  application:
+    name: stock-streaming
+
+server:
+  port: 8080
+
+grpc:
+  server:
+    port: 9090
+  client:
+    stock-server:
+      address: localhost:9090
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      keepAliveTime: 30s
+
+logging:
+  level:
+    root: INFO
+    com.stock: DEBUG

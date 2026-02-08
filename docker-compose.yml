@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  stock-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stock-backend
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - stock-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: stock-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - stock-backend
+    networks:
+      - stock-network
+    environment:
+      - VITE_API_URL=http://stock-backend:8080/api
+
+networks:
+  stock-network:
+    driver: bridge

@@ -1,0 +1,96 @@
+.stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.stock-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stock-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stock-card.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #fff;
+}
+
+.stock-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.stock-card .price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.stock-card.active .price {
+  color: white;
+}
+
+.stock-card .change {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.stock-card .change.positive {
+  color: #2ecc71;
+}
+
+.stock-card .change.negative {
+  color: #e74c3c;
+}
+
+.stock-card.active .change.positive {
+  color: #a1ff6b;
+}
+
+.stock-card.active .change.negative {
+  color: #ff8b6b;
+}
+
+.stock-card .timestamp {
+  font-size: 0.85rem;
+  color: #999;
+  opacity: 0.8;
+}
+
+.stock-card.active .timestamp {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .stock-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    max-height: 400px;
+  }
+
+  .stock-card {
+    padding: 15px;
+  }
+
+  .stock-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .stock-card .price {
+    font-size: 1.5rem;
+  }
+}
