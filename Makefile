@@ -9,7 +9,7 @@ else
 	BACKEND_GRADLE=./backend/gradlew
 endif
 
-.PHONY: help build full-build run run-frontend run-all clean test docker-build docker-rebuild docker-up docker-down docker-logs proto-gen
+.PHONY: help build full-build run run-frontend run-all clean test docker-build docker-rebuild docker-up docker-down docker-logs proto-gen generate-pojo
 
 help:
 	@echo "Stock Streaming System - Available commands:"
@@ -19,6 +19,7 @@ help:
 	@echo "  make build-frontend     - Build frontend with pnpm"
 	@echo "  make full-build         - Clean build (clean + build)"
 	@echo "  make proto-gen          - Generate Java sources from .proto files"
+	@echo "  make generate-pojo      - Generate POJO classes from .proto files"
 	@echo "  make docker-build       - Build Docker images"
 	@echo "  make docker-rebuild     - Rebuild Docker images without cache"
 	@echo ""
@@ -55,6 +56,12 @@ else
 	docker run --rm -v "$(CURDIR)/backend:/project" -w /project gradle:8.6-jdk21 gradle generateProto --no-daemon
 endif
 	@echo "Proto generation complete!"
+	@echo "Generated files location: backend/build/generated/source/proto/main/"
+
+generate-pojo:
+	@echo "Generating POJO classes from .proto files..."
+	cd backend && $(GRADLE_CMD) generateProto
+	@echo "POJO generation complete!"
 	@echo "Generated files location: backend/build/generated/source/proto/main/"
 
 run:
