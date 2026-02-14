@@ -46,7 +46,7 @@ public class StockServiceImpl extends StockServiceGrpc.StockServiceImplBase {
         final ScheduledFuture<?> future = scheduler.scheduleAtFixedRate(() -> {
             try {
                 if (serverCallStreamObserver.isCancelled()) {
-                    return; // Stop sending if cancelled
+                    return;
                 }
                 
                 for (String symbol : symbols) {

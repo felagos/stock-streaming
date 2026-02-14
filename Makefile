@@ -77,14 +77,6 @@ run-frontend:
 	@echo "Starting frontend development server on http://localhost:3000"
 	cd frontend && npx pnpm install && npx pnpm dev
 
-run-all: build build-frontend
-	@echo ""
-	@echo "All services are ready!"
-	@echo ""
-	@echo "Start in separate terminals:"
-	@echo "  Terminal 1: make run"
-	@echo "  Terminal 2: make run-frontend"
-
 clean:
 	@echo "Cleaning build artifacts..."
 	cd backend && $(GRADLE_CMD) clean
